@@ -1,0 +1,122 @@
+<!--- This software is licensed under the MIT License: https://github.com/spacehuhntech/esp8266_deauther -->
+
+<!Doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+	<meta name="theme-color" content="#36393E">
+
+	<meta name="description" content="ESP8266 Deauther">
+	<title>ESP8266 Hash - Nguyễn Trường</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/site.js"></script>
+	<script src="js/attack.js"></script>
+</head>
+
+<body onload="loadLang()">
+	<nav>
+		<ul class="menu">
+			<li><a href="scan.html" data-translate="scan">Quét</a></li>
+			<li><a href="ssids.html" data-translate="ssids">SSIDs</a></li>
+			<li><a href="attack.html" data-translate="attacks">Tấn công</a></li>
+			<li><a href="settings.html" data-translate="settings">Cài đặt</a></li>
+		</ul>
+	</nav>
+
+	<div id="status"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="header" data-translate="attacks">Tấn công</h1>
+
+				<p>
+					<span class="red" data-translate="info_span">Thông tin:</span><br>
+					<span data-translate="attack_info">
+- Bạn có thể mất kết nối khi bắt đầu tấn công!<br>
+- Bạn cần chọn mục tiêu cho cuộc tấn công deauth.<br>
+- Bạn cần một SSID đã lưu cho cuộc tấn công thăm dò và báo hiệu.<br>
+- Nhấp vào tải lại để làm mới tốc độ gói tin.<br>
+					</span>
+					<span data-translate="info_disclaimer">Trong trường hợp xảy ra lỗi không mong muốn, vui lòng tải lại trang web và
+						nhìn vào màn hình nối tiếp để tiếp tục debug 😃.</span><br>
+				</p>
+				<p class="right">
+					<button onclick="stopAll()" data-translate="stop">dừng</button>
+					<button onclick="load()" data-translate="reload">tải lại</button>
+				</p>
+				<table>
+					<tr>
+						<th data-translate="attacks">Attacks</th>
+						<th data-translate="targets">Mục tiêu</th>
+						<th>Pkts/s</th>
+						<th data-translate="start_stop">Chạy / Dừng</th>
+					</tr>
+					<tr>
+						<td>Deauth</td>
+						<td id="deauthTargets">0</td>
+						<td id="deauthPkts">0/0</td>
+						<td><button id="deauth" onclick="start(0)" class="select" data-translate="start">Chạy</button>
+						</td>
+					</tr>
+					<tr>
+						<td>đèn hiệu / Beacon</td>
+						<td id="beaconTargets">0</td>
+						<td id="beaconPkts">0/0</td>
+						<td><button id="beacon" onclick="start(1)" class="select" data-translate="start">Chạy</button>
+						</td>
+					</tr>
+					<tr>
+						<td>đầu dò / Probe</td>
+						<td id="probeTargets">0</td>
+						<td id="probePkts">0/0</td>
+						<td><button id="probe" onclick="start(2)" class="select" data-translate="start">Chạy</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">All Pkts/s:</td>
+						<td colspan="2" id="allpkts">0</td>
+					</tr>
+				</table>
+
+				<h2>Deauth</h2>
+				<p data-translate="deauth_desc">
+					Đóng kết nối của thiết bị WiFi bằng cách gửi khung xác thực tới các điểm truy cập và máy khách
+thiết bị bạn đã chọn.<br>
+Điều này chỉ khả thi vì nhiều thiết bị không sử dụng chuẩn 802.11w-2009 cung cấp
+bảo vệ chống lại cuộc tấn công này.<br>
+Vui lòng chỉ chọn một mục tiêu! Khi bạn chọn nhiều mục tiêu chạy trên các kênh khác nhau và
+bắt đầu cuộc tấn công,
+nó sẽ nhanh chóng chuyển đổi giữa các kênh đó và bạn không có cơ hội kết nối lại để truy cập
+điểm lưu trữ giao diện web này.
+				</p>
+
+				<h2>Đèn hiệu / Beacon</h2>
+				<p data-translate="beacon_desc">
+Các gói báo hiệu được sử dụng để quảng cáo các điểm truy cập. Bằng cách liên tục gửi các gói báo hiệu ra ngoài, nó
+sẽ giống như bạn đã tạo mạng Wi-Fi mới.<br>
+Bạn có thể chỉ định tên mạng trong SSID.<br>
+				</p>
+
+				<h2> Đầu dò / Probe</h2>
+				<p data-translate="probe_desc">
+Yêu cầu thăm dò được thiết bị khách gửi để hỏi xem có mạng đã biết ở gần không.<br>
+Sử dụng cuộc tấn công này để gây nhầm lẫn cho trình theo dõi WiFi bằng cách yêu cầu các mạng mà bạn đã chỉ định trong SSID
+danh sách.<br>
+Có vẻ như bạn sẽ không thấy bất kỳ tác động nào của cuộc tấn công này đối với mạng gia đình của mình.<br>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<span id="version">Bản lince thử nghiệm 1.23.1 <strong>by <a href="https://facebook.com">Nguyễn Trường</a></strong> </span>
+	<br>
+		<br>
+		<a href="http://deauther.maltronics.com" target="_blank">Wiki</a> | <a href="info.html">Credits</a>
+	</footer>
+</body>
+
+</html>

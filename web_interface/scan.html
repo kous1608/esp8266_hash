@@ -1,0 +1,122 @@
+<!--- This software is licensed under the MIT License: https://github.com/spacehuhntech/esp8266_deauther -->
+
+<!Doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+	<meta name="theme-color" content="#36393E">
+
+	<meta name="description" content="ESP8266 Deauther">
+	<title>Esp8266 Hash Remake </title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/site.js"></script>
+	<script src="js/scan.js"></script>
+</head>
+
+<body onload="loadLang()">
+	<nav>
+		<ul class="menu">
+			<li><a class="menu" href="scan.html" data-translate="scan">Quét</a></li>
+			<li><a href="ssids.html" data-translate="ssids">SSIDs</a></li>
+			<li><a href="attack.html" data-translate="attacks">Tấn công</a></li>
+			<li><a href="settings.html" data-translate="settings">Cài đặt</a></li>
+		</ul>
+	</nav>
+
+	<div id="status"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="header" data-translate="scan">Quét</h1>
+
+				<button id=scanZero onclick="scan(0)">Quét APs</button>
+				<button id=scanOne onclick="scan(1)">Quét Stations</button>
+				<button id=RButton onclick="load()" data-translate="reload" class="right">Tải lại</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<label for="ch" data-translate="channel">Kênh</label>
+			</div>
+			<div class="col-6">
+				<select id="ch" name="ch">
+					<option value="all" data-translate="all">Tất cả</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<label data-translate="station_scan_time">Station Scan Time</label>
+			</div>
+			<div class="col-6">
+				<input type="number" value="15" id="scanTime">s
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<p>
+					<span class="red" data-translate="info_span">Thông tin: </span><br>
+					<span data-translate="scan_info">
+- Bấm Quét và đợi cho đến khi đèn LED màu xanh lam trên bo mạch của bạn tắt (hoặc chuyển sang màu xanh lục), sau đó
+nhấp vào Tải lại.
+<br>
+- Giao diện web sẽ không khả dụng trong quá trình quét trạm và bạn sẽ phải
+kết nối lại!
+<br>
+- Hãy chỉ chọn một mục tiêu thôi nhé 😃!<br>
+					</span>
+					<span data-translate="info_disclaimer">Trong trường hợp xảy ra lỗi không mong muốn, vui lòng tải lại trang web và
+						nhìn vào màn hình nối tiếp để debug thôi  ☹️.</span>
+				</p>
+
+				<hr>
+
+				<h2><span>Điểm truy cập</span>: <span id="apNum"></span></h2>
+				<table id="apTable"></table>
+				<button onclick="selectAll(0,true)" data-translate="select_all">Chọn tất cả</button>
+				<button onclick="selectAll(0,false)" data-translate="deselect_all">Bỏ chọn tất cả</button>
+
+				<hr>
+
+				<h2><span>Stations</span>: <span id="stNum"></span></h2>
+				<table id="stTable"></table>
+				<button onclick="selectAll(1,true)" data-translate="select_all">Chọn tất cả</button>
+				<button onclick="selectAll(1,false)" data-translate="deselect_all">Bỏ chọn tất cả</button>
+
+				<hr>
+
+				<h2><span data-translate="devices">Thiết bị đã lưu</span>: <span id="nNum"></span></h2>
+				<table id="nTable"></table>
+				<button onclick="selectAll(2,true)" data-translate="select_all">Chọn tất cả</button>
+				<button onclick="selectAll(2,false)" data-translate="deselect_all">Bỏ chọn tất cả</button>
+				<button onclick="add(2)" data-translate="new">Mới</button>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<span id="version">Bản lince purpose nodejs thử nghiệm 1.23.1 <strong>by <a href="https://facebook.com">Nguyễn Trường</a></strong> </span>
+	<br>
+		<br>
+		<a href="http://deauther.maltronics.com" target="_blank">Wiki</a> | <a href="info.html">Credits</a>
+	</footer>
+</body>
+
+</html>

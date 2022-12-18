@@ -1,0 +1,118 @@
+<!--- This software is licensed under the MIT License: https://github.com/spacehuhntech/esp8266_deauther -->
+
+<!Doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+	<meta name="theme-color" content="#36393E">
+
+	<meta name="description" content="ESP8266 Deauther">
+	<title>ESP8266 Hash - Nguyễn Trường</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/site.js"></script>
+</head>
+
+<body onload="loadLang()">
+	<nav>
+		<ul class="menu">
+			<li><a href="scan.html" data-translate="scan">Quét</a></li>
+			<li><a href="ssids.html" data-translate="ssids">SSIDs</a></li>
+			<li><a href="attack.html" data-translate="attacks">Tấn công</a></li>
+			<li><a href="settings.html" data-translate="settings">Cài đặt</a></li>
+		</ul>
+	</nav>
+
+	<div id="status"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="header">Tín dụng</h1>
+
+				<h2>Tuyên bố miễn trừ trách nhiệm</h2>
+				<p data-translate="disclaimer">
+					Dự án này là một bằng chứng về khái niệm cho mục đích thử nghiệm và giáo dục.<br>
+Cả ESP8266 và SDK của nó đều không được thiết kế hoặc xây dựng cho các mục đích như vậy. Lỗi có thể xảy ra!<br>
+<br>
+Chỉ sử dụng nó với các mạng và thiết bị của riêng bạn!<br>
+<br>
+Nó sử dụng các khung Wi-Fi hợp lệ được mô tả trong tiêu chuẩn IEEE 802.11 và không chặn hoặc làm gián đoạn bất kỳ
+tần số.<br>
+Vui lòng kiểm tra các quy định pháp lý ở quốc gia của bạn trước khi sử dụng.<br>
+<br>
+Vui lòng không gọi dự án này là "thiết bị gây nhiễu", vì nó làm suy yếu mục đích thực sự của dự án này
+dự án!<br>
+Nếu bạn làm như vậy, điều đó chỉ chứng tỏ rằng bạn không hiểu gì về ý nghĩa của dự án này.<br>
+Xuất bản nội dung về điều này mà không có lời giải thích thích hợp cho thấy rằng bạn chỉ làm điều đó cho
+nhấp chuột,
+danh tiếng và/hoặc tiền bạc và không tôn trọng tài sản trí tuệ, cộng đồng đằng sau nó và
+đấu tranh cho một tiêu chuẩn Wi-Fi tốt hơn.<br>
+<br>
+Để biết thêm thông tin, hãy truy cập:<br>
+					<a
+					href="https://github.com/kous1608/esp8266_hash">github.com/kous1608/esp8266_hash</a>
+				</p>
+
+				<h2>Lời cảm ơn</h2>
+				<p>
+				Xin chân thành cảm ơn thành viên :<br>
+				<ul>
+				<li><a href="http://facebook.com/kous1608" target="_blank">Nguyễn Trường</a></li>
+				<li><a href="http://github.com/#" target="_blank">Lin</a></li>
+				
+				</ul>
+				vì đã giúp đỡ nhiều thứ liên quan đến dự án này và duy trì nó tồn tại!<br>
+				<br>
+				Cũng xin cảm ơn tất cả những người làm việc trên các thư viện được sử dụng cho dự án này:<br>
+				<ul>
+				<li><a href="https://github.com/ThingPulse/esp8266-oled-ssd1306"
+				target="_blank">esp8266-oled-ssd1306</a></li>
+				<li><a href="https://github.com/bblanchon/ArduinoJson" target="_blank">ArduinoJson</a></li>
+				<li><a href="https://github.com/adafbean/Adafruit_DotStar" target="_blank">Adafruit DotStar</a></li>
+				<li><a href="https://github.com/adafruit/Adafruit_NeoPixel" target="_blank">Adaf nhung NeoPixel</a>
+				</li>
+				<li><a href="https://github.com/NorthernWidget/DS3231" target="_blank">DS3231</a></li>
+				<li><a href="https://github.com/xoseperez/my92xx" target="_blank">my92xx</a></li>
+				</ul>
+				Chúng tôi cũng cảm ơn Espressif và cộng đồng của họ vì con chip tuyệt vời này cũng như tất cả phần mềm và
+				các dự án phần cứng xung quanh nó và vô số hướng dẫn mà bạn có thể tìm thấy trực tuyến!<br>
+				</p>
+				
+				<h2>Giấy phép</h2>
+				<p>
+				<b>Về phần sụn:</b><br>
+				<br>
+				Giấy phép MIT<br>
+				Bản quyền (c) 2020 Spacehuhn Technologies<br>
+				<br>
+				Theo đây, quyền được cấp miễn phí cho bất kỳ người nào có được một bản sao của phần mềm này và
+				các tệp tài liệu liên quan ("Phần mềm"), để xử lý Phần mềm mà không bị hạn chế,
+				bao gồm nhưng không giới hạn quyền sử dụng, sao chép, sửa đổi, hợp nhất, xuất bản, phân phối,
+				cấp giấy phép phụ và/hoặc bán các bản sao của Phần mềm và cho phép những người mà Phần mềm được
+				được trang bị để làm như vậy, tuân theo các điều kiện sau:<br>
+				<br>
+				Thông báo bản quyền ở trên và thông báo cấp phép này sẽ được bao gồm trong tất cả các bản sao hoặc nội dung quan trọng
+				các phần của Phần mềm.<br>
+				<br>
+				PHẦN MỀM ĐƯỢC CUNG CẤP "NGUYÊN TRẠNG", KHÔNG CÓ BẢO ĐẢM DƯỚI BẤT KỲ HÌNH THỨC NÀO, RÕ RÀNG HAY NGỤ Ý, BAO GỒM NHƯNG
+				KHÔNG GIỚI HẠN CÁC BẢO ĐẢM VỀ KHẢ NĂNG BÁN ĐƯỢC, SỰ PHÙ HỢP CHO MỘT MỤC ĐÍCH CỤ THỂ VÀ
+				KHÔNG VI PHẠM. TRONG MỌI TRƯỜNG HỢP TÁC GIẢ HOẶC NGƯỜI GIỮ BẢN QUYỀN SẼ KHÔNG CHỊU TRÁCH NHIỆM PHÁP LÝ VỀ BẤT KỲ KHIẾU NẠI, THIỆT HẠI NÀO
+				HOẶC TRÁCH NHIỆM PHÁP LÝ KHÁC, DÙ TRONG MỘT HÀNH ĐỘNG HỢP ĐỒNG, NGOẠI TỘI HAY CÁCH KHÁC, PHÁT SINH TỪ, NGOÀI HOẶC TRONG
+				KẾT NỐI VỚI PHẦN MỀM HOẶC VIỆC SỬ DỤNG HOẶC CÁC GIAO DỊCH KHÁC TRONG PHẦN MỀM.
+				</p>
+				</div>
+		</div>
+	</div>
+	<footer>
+		<span id="version">Bản lince thử nghiệm 1.23.1 <strong>by <a href="https://facebook.com">Nguyễn Trường</a></strong> </span>
+
+		<br>
+		<br>
+		<a href="http://deauther.maltronics.com" target="_blank">Wiki</a> | <a href="info.html">Credits</a>
+	</footer>
+</body>
+
+</html>
